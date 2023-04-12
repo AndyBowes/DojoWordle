@@ -1,7 +1,15 @@
-fun main(args: Array<String>) {
-    println("Hello World!")
+import kotlinx.coroutines.runBlocking
+import org.dojo.wordle.api.API
 
-    // Try adding program arguments via Run/Debug configuration.
-    // Learn more about running applications: https://www.jetbrains.com/help/idea/running-applications.html.
-    println("Program arguments: ${args.joinToString()}")
+fun main() {
+
+    val api = API()
+    runBlocking {
+        val (_, teamId) = api.createTeam()
+        val (gameId) = api.createGame(teamId)
+
+        val response = api.makeGuess(gameId, "arise")
+
+        print(response)
+    }
 }
